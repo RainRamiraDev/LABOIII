@@ -1,0 +1,28 @@
+package com.example.usuario_api.Config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class MappersConfig {
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
+    @Bean("mergerMapper")
+    public ModelMapper mergerMapper() {
+        ModelMapper mapper =  new ModelMapper();
+        mapper.getConfiguration()
+                .setPropertyCondition(Conditions.isNotNull());
+        return mapper;
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper;
+    }
+}
